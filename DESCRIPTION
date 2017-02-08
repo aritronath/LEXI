@@ -1,0 +1,21 @@
+Package: LEXI
+Type: Package
+Title: LEXI: lncRNA expression imputation
+Version: 0.1.0
+Author: Aritro Nath
+Maintainer: Aritro Nath <aritronath@gmail.com>
+Description: LEXI imputes expression profile of an lncRNA of interest from 
+    protein coding gene expression data. The statistical model for imputing 
+    lncRNA expression is generated using a training proteing coding and lncRNA
+    expression dataset, and applied on a test protein coding dataset to obtain
+    profile of lncRNA of interest. 
+    This package includes functions to obtain matched training and test 
+    protein coding gene matrices, filtering lncRNA datasets based on percetage
+    of samples with positive expression of lncRNA, cross-validations to obtain
+    imputation accucacy and imputation function to get lncRNA profile. 
+License: GNU-3.0
+Encoding: UTF-8
+LazyData: true
+Depdends: R (>=3.3.0)
+Imports: randomForest (>= 4.6-12)
+RoxygenNote: 6.0.1
