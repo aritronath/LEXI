@@ -102,7 +102,7 @@ corf <- function (train_pcg, train_lnc, gene_index, num=100) {
 #' @import randomForest
 #'
 #' @export
-lexi_cv <- function (train_pcg, train_lnc, gene_index, num=100, folds=5) {
+lexi_cv <- function (train_pcg, train_lnc, gene_index, num=100, folds=5, ...) {
 
   if (mode(gene_index)!="numeric" & mode(gene_index)!="character") stop ("Error: lncRNA not found in training dataset. Please check gene name or rownumber")
   if (mode(gene_index)=="numeric" & gene_index > ncol(train_lnc))  stop ("Error: lncRNA not found in training dataset. Please check ID or rownumber")
@@ -136,7 +136,7 @@ lexi_cv <- function (train_pcg, train_lnc, gene_index, num=100, folds=5) {
     }
 
     #randomForest
-    imp.rf <- randomForest(x, y, ntree=100)
+    imp.rf <- randomForest(x, y, ntree=100, ...)
     predict.y <- predict(imp.rf,testx)
     r.rf <- cor.test(predict.y,actual.y,method="pearson")
     rmse.rf <- sqrt(mean((actual.y-predict.y)^2))
@@ -166,7 +166,7 @@ lexi_cv <- function (train_pcg, train_lnc, gene_index, num=100, folds=5) {
 #' @examples lexi(train_pcg, train_lnc, my_pcg, gene_index=25, num=100)
 #'
 #' @export
-lexi <- function (train_pcg, train_lnc, my_pcg, gene_index, num=100) {
+lexi <- function (train_pcg, train_lnc, my_pcg, gene_index, num=100, ...) {
 
   if (mode(train_pcg)!="numeric" | mode(train_lnc)!="numeric" | mode(my_pcg)!="numeric" |
       class(train_pcg)!="matrix" | class(train_lnc)!="matrix" | class(my_pcg)!="matrix") stop ("Error: input data must be numberic matrix")
@@ -181,7 +181,7 @@ lexi <- function (train_pcg, train_lnc, my_pcg, gene_index, num=100) {
 
   x <- scale (corf(train_pcg, train_lnc, gene_index, num))
 
-  rfit <- randomForest(x, y, ntree=100)
+  rfit <- randomForest(x, y, ntree=100,...)
   predict.y <-  predict(rfit, my_pcg)
   return(predict.y)
 }
